@@ -46,6 +46,7 @@ func init() {
 		err = client.Login(AppID)
 		if err != nil {
 			log.Println("WARN | Connection to Discord RPC failed, retrying shortly...")
+			log.Println("WARN | Error: ", err)
 			time.Sleep(RetryInterval)
 		} else {
 			connected = true
