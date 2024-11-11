@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 	"time"
 
 	"github.com/Jack-Gledhill/discord-rich-presence/api"
@@ -11,32 +10,17 @@ import (
 )
 
 const (
+	// APIBase is the base URL for the presence API
+	APIBase = "http://localhost:8080"
+	// AppID is the Discord application ID that is used to connect to the RPC
+	AppID = "1302660616741326959"
 	// RetryInterval is the time to wait between connection attempts
 	RetryInterval = 60 * time.Second
 	// UpdateInterval is the time between presence updates
 	UpdateInterval = 30 * time.Second
 )
 
-var (
-	// APIBase is the base URL for the presence API
-	APIBase string
-	// AppID is the Discord application ID that is used to connect to the RPC
-	AppID string
-)
-
 func init() {
-	// Get environment variables and crash if they're not set (because they're required)
-	var ok bool
-	APIBase, ok = os.LookupEnv("API_BASE")
-	if !ok {
-		log.Fatalln("FATAL | API_BASE environment variable not set")
-	}
-
-	AppID, ok = os.LookupEnv("APP_ID")
-	if !ok {
-		log.Fatalln("FATAL | APP_ID environment variable not set")
-	}
-
 	// Repeatedly try to connect to the Discord RPC
 	// This stops the program crashing repeatedly if Discord isn't running
 	var connected bool
